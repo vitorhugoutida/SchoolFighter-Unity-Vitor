@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static System.TimeZoneInfo;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator transition;
+    public float transitionTime = 1f;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+
     private Rigidbody2D playerRigidBody;
     
     public float playerSpeed = 0.6f;
@@ -13,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isWalking;
 
-    private Animator playerAnimator;
+    public Animator playerAnimator;
 
     // Player olhando para a direita
     private bool playerFacingRight = true;
@@ -26,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool comboControl;
 
     // Indicar se o Player esta morto
-    private bool isDead;
+    public bool isDead;
 
     // Propriedades para a UI
     public int maxHealth = 10;
@@ -197,5 +205,24 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("HitDamage");
             FindFirstObjectByType<UIManager>().UpdatePlayerHealth(currentHealth);
         }
+
+        if (currentHealth <= 0)
+        {
+            playerAnimator.SetTrigger("isDead");
+
+            isDead = true;
+
+            // Corrige o bug do inimgo deslizar após morto
+            //rb.linearVelocity = Vector2.zero;
+
+            playerSpeed = 0;
+
+
+
+
+
+        }
     }
+
+
 }

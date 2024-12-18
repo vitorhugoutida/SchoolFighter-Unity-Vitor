@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    public Animator playerAnimator;
+
     public Animator transition;
     public float transitionTime = 1f;
 
@@ -22,6 +24,13 @@ public class LevelLoader : MonoBehaviour
             //Mudar de Cena
             StartCoroutine(CarregarFase("Fase1"));
         }
+
+
+        if (playerAnimator.isDead == true)
+        {
+            //Mudar de Cena
+            StartCoroutine(CarregarFase("TelaGameOver"));
+        }
     }
 
     // Corrotina - Coroutine
@@ -38,3 +47,6 @@ public class LevelLoader : MonoBehaviour
     }
 
 }
+
+
+
